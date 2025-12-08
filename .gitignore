@@ -1,0 +1,17 @@
+# Dependency Directories
+# Node modules folder contains all third-party libraries and should always be ignored.
+/node_modules
+
+# Lock File
+# Including the package-lock.json is generally recommended for consistency,
+# but if you prefer to generate it upon install, you can ignore it.
+# However, standard practice often is to INCLUDE package-lock.json.
+# Given your explicit mention, we will ignore it if you do not want it.
+# If you want consistency across installations (recommended), REMOVE the line below.
+/package-lock.json
+
+# Optional: Logs and Temp files
+# Logs and temporary files generated during development (good practice to include)
+/npm-debug.log
+/.DS_Store
+/temp

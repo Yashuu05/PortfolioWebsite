@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Future Software Engineer</title>
+    
+    <!-- Fonts: Montserrat (Headers) and Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS VARIABLES & THEME --- */
+        :root {
+            /* Palette: Dark Neutral Primary, Electric Teal Accent */
+            --bg-primary: #0a192f;
+            --bg-secondary: #112240;
+            --bg-card: #1d2d50;
+            
+            --text-main: #e6f1ff;
+            --text-secondary: #8892b0;
+            
+            --accent: #64ffda;
+            --accent-hover: #45c4a0;
+            
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            
+            --transition: all 0.3s ease-in-out;
+        }
+
+        /* --- GLOBAL STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            color: var(--text-main);
+            margin-bottom: 20px;
+        }
+
+        h1 { font-size: 3rem; font-weight: 800; }
+        h2 { font-size: 2.2rem; font-weight: 700; display: flex; align-items: center; }
+        h2::before {
+            content: '0' counter(section-counter) '.';
+            color: var(--accent);
+            margin-right: 10px;
+            font-family: var(--font-heading);
+            font-weight: 400;
+            font-size: 1.8rem;
+        }
+        
+        body { counter-reset: section-counter; }
+        section h2 { counter-increment: section-counter; }
+
+        p { color: var(--text-secondary); font-size: 1.1rem; }
+
+        .highlight { color: var(--accent); }
+
+        /* --- UTILITIES --- */
+        .btn {
+            display: inline-block;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background: rgba(100, 255, 218, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-family: var(--font-heading);
+            color: var(--text-main);
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+
+        /* --- HERO --- */
+        #hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 0;
+        }
+
+        .hero-greeting { color: var(--accent); font-family: var(--font-heading); margin-bottom: 20px; }
+        .hero-title { font-size: 4rem; line-height: 1.1; color: var(--text-main); }
+        .hero-subtitle { font-size: 3rem; line-height: 1.1; color: var(--text-secondary); margin-bottom: 20px; }
+        .hero-desc { max-width: 600px; margin-bottom: 40px; }
+
+        /* --- ABOUT --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .skills-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .skill-item i { color: var(--accent); }
+
+        /* --- PROJECTS --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .project-card {
+            background-color: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 8px;
+            transition: var(--transition);
+            position: relative;
+            top: 0;
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+        }
+        .project-top { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .folder-icon { color: var(--accent); font-size: 2rem; }
+        .project-links a { color: var(--text-secondary); margin-left: 15px; font-size: 1.2rem; }
+        .project-links a:hover { color: var(--accent); }
+        .project-title { font-size: 1.4rem; font-weight: 700; color: var(--text-main); }
+        .project-desc { font-size: 0.95rem; margin-bottom: 20px; }
+        .project-tech { display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.8rem; font-family: var(--font-heading); color: var(--text-secondary); }
+
+        /* --- EDUCATION --- */
+        .edu-card {
+            border-left: 2px solid var(--accent);
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+        .edu-degree { font-size: 1.2rem; font-weight: 700; color: var(--text-main); }
+        .edu-school { color: var(--accent); margin-bottom: 5px; }
+
+        /* --- SKILLS DETAILS --- */
+        .skills-container { display: flex; flex-direction: column; gap: 30px; }
+        .skill-category h3 { font-size: 1.2rem; color: var(--accent); margin-bottom: 15px; }
+        .skill-bars { display: flex; flex-direction: column; gap: 15px; }
+        .bar-container { background: var(--bg-secondary); height: 10px; border-radius: 5px; position: relative; width: 100%; overflow: hidden; }
+        .bar-fill { background: var(--accent); height: 100%; border-radius: 5px; width: 0; transition: width 1.5s ease-in-out; }
+        .skill-meta { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.9rem; }
+
+        /* --- COMPETITIONS --- */
+        .competition-card {
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+        }
+        .competition-card:hover { border-color: var(--accent); }
+        .comp-header { display: flex; justify-content: space-between; flex-wrap: wrap; margin-bottom: 15px; }
+        .comp-name { font-size: 1.3rem; font-weight: 700; color: var(--text-main); }
+        .comp-date { font-family: var(--font-heading); color: var(--text-secondary); font-size: 0.9rem; }
+        .comp-about { margin-bottom: 15px; font-style: italic; }
+        .comp-contrib { margin-bottom: 15px; border-left: 2px solid var(--bg-card); padding-left: 10px; }
+        .comp-skills span { display: inline-block; background: var(--bg-card); padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; color: var(--accent); margin-right: 5px; margin-bottom: 5px; }
+
+        /* --- CONTACT --- */
+        .contact-container { text-align: center; max-width: 600px; margin: 0 auto; }
+        .social-links { margin-top: 40px; display: flex; justify-content: center; gap: 30px; }
+        .social-links a { font-size: 1.5rem; color: var(--text-secondary); }
+        .social-links a:hover { color: var(--accent); transform: translateY(-3px); }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-family: var(--font-heading);
+        }
+
+        /* --- ANIMATION (SCROLL REVEAL) --- */
+        .hidden { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .show { opacity: 1; transform: translateY(0); }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; } /* Simplify for mobile demo */
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.8rem; }
+            .about-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="logo">PORTFOLIO.</div>
+        <div class="nav-links">
+            <a href="#about"><span class="highlight">01.</span> About</a>
+            <a href="#projects"><span class="highlight">02.</span> Projects</a>
+            <a href="#experience"><span class="highlight">03.</span> Experience</a>
+            <a href="#competitions"><span class="highlight">04.</span> Competitions</a>
+            <a href="#contact"><span class="highlight">05.</span> Contact</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero">
+        <!-- Content injected via JS -->
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-grid">
+            <div id="about-text">
+                <!-- Content injected via JS -->
+            </div>
+            <!-- Placeholder for Image -->
+            <div style="text-align: center;">
+                <div style="width: 250px; height: 250px; background-color: var(--accent); opacity: 0.2; border-radius: 50%; margin: 0 auto; position: relative;">
+                    <!-- Real image would go here -->
+                </div>
+                <div style="position: relative; top: -230px; left: 20px; width: 250px; height: 250px; border: 2px solid var(--accent); border-radius: 50%;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects">
+        <h2>Some Things I've Built</h2>
+        <div class="project-grid" id="project-container">
+            <!-- Projects injected via JS -->
+        </div>
+    </section>
+
+    <!-- EDUCATION SECTION -->
+    <section id="education">
+        <h2>Education</h2>
+        <div id="education-container">
+            <!-- Education injected via JS -->
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills">
+        <h2>Skills & Technologies</h2>
+        <div class="skills-container" id="skills-container">
+            <!-- Skills injected via JS -->
+        </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications">
+        <h2>Certifications</h2>
+        <ul id="certs-container" style="list-style: none;">
+            <!-- Certs injected via JS -->
+        </ul>
+    </section>
+
+    <!-- COMPETITIONS SECTION (CUSTOM REQUEST) -->
+    <section id="competitions">
+        <h2>Competitions & Hackathons</h2>
+        <div id="competitions-container">
+            <!-- Competitions injected via JS -->
+        </div>
+    </section>
+
+    <!-- EXPERIENCE (Placeholder) -->
+    <section id="experience">
+        <h2>Where I've Worked</h2>
+        <div id="experience-container">
+             <!-- Exp injected via JS -->
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+        <div class="contact-container">
+            <h2 style="justify-content: center; margin-bottom: 10px;">05. What's Next?</h2>
+            <h1 style="font-size: 2.5rem; margin-bottom: 20px;">Get In Touch</h1>
+            <p style="margin-bottom: 40px;">
+                I am currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+            </p>
+            <!-- Added id="email-btn" here -->
+            <a href="#" class="btn" id="email-btn">Say Hello</a>
+
+            <div class="social-links" id="social-links">
+                <!-- Socials injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 Designed & Built by <span id="footer-name">Your Name</span></p>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /**
+         * ------------------------------------------------------------------
+         * CONTENT CONFIGURATION (EDIT THIS SECTION TO UPDATE WEBSITE)
+         * ------------------------------------------------------------------
+         */
+        const portfolioData = {
+            personal: {
+                name: "Yash Chillal",
+                tagline: "Building digital experiences with code & creativity.",
+                bio: "",
+                email: "", // <--- UPDATE THIS LINE WITH YOUR EMAIL
+                resumeLink: "#"
+            },
+            hero: {
+                greeting: "Hi, my name is",
+                title: ".",
+                subtitle: "",
+                description: "I'm a software engineer specializing in building (and occasionally designing) exceptional digital experiences. Currently, I'm focused on building accessible, human-centered products."
+            },
+            skillsList: [
+                "Python", "SQL", "Pandas", "Matplotlib", "Seaborn", "Scikit Learn", "ML", "Tableau", "Data Visualization", "Prompt Design", "Workflow (n8n)"
+            ],
+            projects: [
+                {
+                    title: "AI Chat Assistant",
+                    description: "A web application that uses OpenAI API to provide intelligent responses. Features include history saving and markdown rendering.",
+                    tech: ["React", "Node.js", "OpenAI API"],
+                    links: { demo: "", repo: "https://github.com/Yashuu05/Multimodel-AI-APP" }
+                },
+                {
+                    title: "AI Chatbot Application",
+                    description: "A comprehensive dashboard for managing products, orders, and analytics. Built with a focus on performance and responsive design.",
+                    tech: ["Python", "MongoDB", "T-kinter"],
+                    links: { demo: "https://github.com/Yashuu05/Python-AI-Application", repo: "https://github.com/Yashuu05/Python-AI-Application" }
+                },
+                {
+                    title: "Pathfinding Visualizer",
+                    description: "An interactive visualization of Dijkstra's Algorithm and A* Search. Helps students understand graph theory concepts.",
+                    tech: ["Vanilla JS", "HTML5 Canvas", "CSS3"],
+                    links: { demo: "#", repo: "#" }
+                }
+            ],
+            education: [
+                {
+                    degree: "",
+                    school: "",
+                    years: "",
+                    coursework: ""
+                },
+                
+                
+            ],
+            skillCategories: [
+                {
+                    category: "Languages",
+                    items: [
+                        { name: "Python", level: 90 },
+                        { name: "Pandas", level: 85 },
+                        { name: "Scikit-learn", level: 70 },
+                        { name: "Tableau", level: 80 },
+                        { name: "Seaborn", level: 75 },
+                        { name: "Matplotlib", level: 90 }
+                    ]
+                },
+                {
+                    category: "Frameworks",
+                    items: [
+                    ]
+                }
+            ],
+            competitions: [
+                {
+                    name: "Smart India Hackathon 2024",
+                    date: "Aug 2024",
+                    about: "A nationwide initiative to provide students with a platform to solve some of the pressing problems we face in our daily lives.",
+                    certificate: "#",
+                    contribution: "Lead Backend Developer. Designed the database schema and API endpoints for the logistics management system.",
+                    skills: ["Node.js", "MongoDB", "AWS"]
+                },
+                {
+                    name: "CodeChef Cook-Off",
+                    date: "Dec 2023",
+                    about: "A competitive programming contest testing algorithmic problem solving skills.",
+                    certificate: "#",
+                    contribution: "Secured Global Rank 150 out of 5000+ participants.",
+                    skills: ["C++", "Algorithms", "Data Structures"]
+                }
+            ],
+            certifications: [
+                {
+                    name: "Tableau Business Intelligence Analyst",
+                    issuer: "Coursera",
+                    date: "2024",
+                    link: "https://coursera.org/verify/professional-cert/9BTYJ9VF2129"
+                }
+            ],
+            experience: [
+                {
+                    role: "Technical Lead",
+                    company: "University Coding Club",
+                    range: "2024 - Present",
+                    points: [
+                        "Mentored 50+ juniors in web development basics.",
+                        "Organized monthly coding challenges."
+                    ]
+                }
+            ],
+            socials: [
+                { icon: "fab fa-github", link: "https://github.com/Yashuu05" },
+                { icon: "fab fa-linkedin-in", link: "https://www.linkedin.com/in/yash-chillal-9a069a303" },
+                { icon: "fab fa-instagram", link: "https://twitter.com" }
+            ]
+        };
+
+        /**
+         * ------------------------------------------------------------------
+         * RENDERING LOGIC (DO NOT TOUCH UNLESS CHANGING STRUCTURE)
+         * ------------------------------------------------------------------
+         */
+
+        // Render Hero
+        const heroSection = document.getElementById('hero');
+        heroSection.innerHTML = `
+            <span class="hero-greeting">${portfolioData.hero.greeting}</span>
+            <h1 class="hero-title">${portfolioData.hero.title}</h1>
+            <h2 class="hero-subtitle">${portfolioData.hero.subtitle}</h2>
+            <p class="hero-desc">${portfolioData.hero.description}</p>
+            <a href="${portfolioData.personal.resumeLink}" class="btn">Check out my Resume!</a>
+        `;
+
+        // Render About
+        const aboutText = document.getElementById('about-text');
+        const skillsListHtml = portfolioData.skillsList.map(skill => 
+            `<div class="skill-item"><i class="fas fa-caret-right"></i> ${skill}</div>`
+        ).join('');
+        
+        aboutText.innerHTML = `
+            <p style="margin-bottom: 15px;">${portfolioData.personal.bio}</p>
+            <p>Here are a few technologies I've been working with recently:</p>
+            <div class="skills-list">${skillsListHtml}</div>
+        `;
+
+        // Render Projects
+        const projectContainer = document.getElementById('project-container');
+        portfolioData.projects.forEach(project => {
+            const techHtml = project.tech.map(t => `<span>${t}</span>`).join('');
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.innerHTML = `
+                <div class="project-top">
+                    <div class="folder-icon"><i class="far fa-folder"></i></div>
+                    <div class="project-links">
+                        <a href="${project.links.repo}"><i class="fab fa-github"></i></a>
+                        <a href="${project.links.demo}"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                <h3 class="project-title">${project.title}</h3>
+                <div class="project-desc"><p>${project.description}</p></div>
+                <div class="project-tech">${techHtml}</div>
+            `;
+            projectContainer.appendChild(card);
+        });
+
+        // Render Education
+        const eduContainer = document.getElementById('education-container');
+        portfolioData.education.forEach(edu => {
+            const div = document.createElement('div');
+            div.className = 'edu-card';
+            div.innerHTML = `
+                <h3 class="edu-degree">${edu.degree}</h3>
+                <h4 class="edu-school">${edu.school} | ${edu.years}</h4>
+                <p>${edu.gpa}</p>
+                <p style="font-size: 0.9rem; margin-top: 5px;"><strong>Coursework:</strong> ${edu.coursework}</p>
+            `;
+            eduContainer.appendChild(div);
+        });
+
+        // Render Skills (Bars)
+        const skillsContainer = document.getElementById('skills-container');
+        portfolioData.skillCategories.forEach(cat => {
+            const catDiv = document.createElement('div');
+            catDiv.className = 'skill-category';
+            const itemsHtml = cat.items.map(item => `
+                <div>
+                    <div class="skill-meta"><span>${item.name}</span><span>${item.level}%</span></div>
+                    <div class="bar-container"><div class="bar-fill" style="width: ${item.level}%"></div></div>
+                </div>
+            `).join('');
+            catDiv.innerHTML = `<h3>${cat.category}</h3><div class="skill-bars">${itemsHtml}</div>`;
+            skillsContainer.appendChild(catDiv);
+        });
+
+        // Render Competitions
+        const compContainer = document.getElementById('competitions-container');
+        portfolioData.competitions.forEach(comp => {
+            const skillsHtml = comp.skills.map(s => `<span>${s}</span>`).join('');
+            const div = document.createElement('div');
+            div.className = 'competition-card';
+            div.innerHTML = `
+                <div class="comp-header">
+                    <div class="comp-name">${comp.name}</div>
+                    <div class="comp-date">${comp.date}</div>
+                </div>
+                <div class="comp-about">${comp.about}</div>
+                <div class="comp-contrib">
+                    <strong>My Contribution:</strong> ${comp.contribution}
+                </div>
+                <div class="comp-skills">${skillsHtml}</div>
+                ${comp.certificate ? `<a href="${comp.certificate}" class="highlight" style="font-size: 0.9rem;">View Certificate <i class="fas fa-arrow-right"></i></a>` : ''}
+            `;
+            compContainer.appendChild(div);
+        });
+
+        // Render Experience
+        const expContainer = document.getElementById('experience-container');
+        portfolioData.experience.forEach(exp => {
+            const ul = exp.points.map(p => `<li><i class="fas fa-caret-right highlight"></i> ${p}</li>`).join('');
+            const div = document.createElement('div');
+            div.style.marginBottom = '20px';
+            div.innerHTML = `
+                <h3 style="color: var(--text-main); font-size: 1.3rem;">${exp.role} <span class="highlight">@ ${exp.company}</span></h3>
+                <p style="font-family: var(--font-heading); font-size: 0.9rem; margin-bottom: 10px;">${exp.range}</p>
+                <ul style="margin-left: 20px;">${ul}</ul>
+            `;
+            expContainer.appendChild(div);
+        });
+        
+        // Render Certifications
+        const certsContainer = document.getElementById('certs-container');
+        portfolioData.certifications.forEach(cert => {
+            const li = document.createElement('li');
+            li.style.marginBottom = '10px';
+            li.innerHTML = `<i class="fas fa-certificate highlight"></i> <strong>${cert.name}</strong> - ${cert.issuer} (${cert.date})`;
+            certsContainer.appendChild(li);
+        });
+
+        // Render Footer Name
+        document.getElementById('footer-name').innerText = portfolioData.personal.name;
+
+        // Render Email Button
+        document.getElementById('email-btn').href = `mailto:${portfolioData.personal.email}`;
+
+        // Render Socials
+        const socialContainer = document.getElementById('social-links');
+        portfolioData.socials.forEach(soc => {
+            const a = document.createElement('a');
+            a.href = soc.link;
+            a.innerHTML = `<i class="${soc.icon}"></i>`;
+            socialContainer.appendChild(a);
+        });
+
+        // Scroll Reveal Animation Logic
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('hidden');
+            observer.observe(section);
+        });
+
+    </script>
+</body>
+</html>
