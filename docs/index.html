@@ -16,13 +16,14 @@
     <style>
         /* --- CSS VARIABLES & THEME --- */
         :root {
-            --bg-primary: #0a192f;
-            --bg-secondary: #112240;
-            --bg-card: #1d2d50;
-            --text-main: #e6f1ff;
-            --text-secondary: #8892b0;
-            --accent: #64ffda;
-            --accent-hover: #45c4a0;
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: #e2e8f0;
+            --text-main: #1e293b;
+            --text-secondary: #64748b;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --accent-light: #dbeafe;
             --font-heading: 'Montserrat', sans-serif;
             --font-body: 'Inter', sans-serif;
             --transition: all 0.3s ease-in-out;
@@ -70,16 +71,16 @@
             margin-top: 20px;
             cursor: pointer;
         }
-        .btn:hover { background: rgba(100, 255, 218, 0.1); transform: translateY(-3px); }
+        .btn:hover { background: var(--accent-light); transform: translateY(-3px); }
 
         /* --- NAVIGATION --- */
         nav {
             position: fixed; top: 0; width: 100%;
-            background: rgba(10, 25, 47, 0.95);
+            background: rgba(248, 250, 252, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000; padding: 20px 50px;
             display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
         .logo { font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; color: var(--accent); }
         .nav-links { display: flex; gap: 30px; }
@@ -102,10 +103,10 @@
         /* --- PROJECTS --- */
         .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
         .project-card {
-            background-color: var(--bg-secondary); padding: 30px; border-radius: 8px;
-            transition: var(--transition); position: relative;
+            background-color: var(--bg-secondary); padding: 30px; border-radius: 12px;
+            transition: var(--transition); position: relative; border: 1px solid var(--bg-card);
         }
-        .project-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7); }
+        .project-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.25); border-color: var(--accent); }
         .project-top { display: flex; justify-content: space-between; margin-bottom: 20px; }
         .folder-icon { color: var(--accent); font-size: 2rem; }
         .project-links a { color: var(--text-secondary); margin-left: 15px; font-size: 1.2rem; }
@@ -115,20 +116,21 @@
         .project-tech { display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.8rem; font-family: var(--font-heading); color: var(--text-secondary); }
 
         /* --- EDUCATION --- */
-        .edu-card { border-left: 2px solid var(--accent); padding-left: 20px; margin-bottom: 30px; }
+        .edu-card { border-left: 3px solid var(--accent); padding-left: 25px; margin-bottom: 30px; background: var(--bg-secondary); padding: 20px 25px 20px 25px; border-radius: 8px; transition: var(--transition); }
+        .edu-card:hover { transform: translateX(5px); box-shadow: 0 5px 15px rgba(59, 130, 246, 0.1); }
         .edu-degree { font-size: 1.2rem; font-weight: 700; color: var(--text-main); }
         .edu-school { color: var(--accent); margin-bottom: 5px; }
 
         /* --- SKILLS --- */
         .skills-container { display: flex; flex-direction: column; gap: 30px; }
         .skill-category h3 { font-size: 1.2rem; color: var(--accent); margin-bottom: 15px; }
-        .skill-bars { display: flex; flex-direction: column; gap: 15px; }
-        .bar-container { background: var(--bg-secondary); height: 10px; border-radius: 5px; position: relative; width: 100%; overflow: hidden; }
-        .bar-fill { background: var(--accent); height: 100%; border-radius: 5px; width: 0; transition: width 1.5s ease-in-out; }
-        .skill-meta { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.9rem; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill-tag { background: var(--bg-card); padding: 10px 18px; border-radius: 20px; border: 1px solid var(--accent); color: var(--text-main); font-size: 0.9rem; transition: var(--transition); }
+        .skill-tag:hover { background: var(--accent); color: white; transform: translateY(-2px); }
 
         /* --- CERTIFICATIONS (UPDATED) --- */
-        .cert-item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--bg-secondary); }
+        .cert-item { margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid var(--bg-card); transition: var(--transition); }
+        .cert-item:hover { padding-left: 10px; border-left: 3px solid var(--accent); }
         .cert-header { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
         .cert-link { color: var(--accent); font-size: 0.85rem; margin-left: 10px; text-decoration: underline; }
         .cert-img-container { margin-top: 10px; }
@@ -141,10 +143,10 @@
 
         /* --- COMPETITIONS --- */
         .competition-card {
-            background-color: var(--bg-secondary); border-radius: 8px; padding: 25px;
-            margin-bottom: 20px; border: 1px solid transparent;
+            background-color: var(--bg-secondary); border-radius: 12px; padding: 25px;
+            margin-bottom: 20px; border: 1px solid var(--bg-card); transition: var(--transition);
         }
-        .competition-card:hover { border-color: var(--accent); }
+        .competition-card:hover { border-color: var(--accent); box-shadow: 0 10px 25px rgba(59, 130, 246, 0.15); transform: translateY(-2px); }
         .comp-header { display: flex; justify-content: space-between; flex-wrap: wrap; margin-bottom: 15px; }
         .comp-name { font-size: 1.3rem; font-weight: 700; color: var(--text-main); }
         .comp-date { font-family: var(--font-heading); color: var(--text-secondary); font-size: 0.9rem; }
@@ -161,19 +163,19 @@
         .modal {
             display: none; position: fixed; z-index: 2000; left: 0; top: 0;
             width: 100%; height: 100%; overflow: auto;
-            background-color: rgba(0,0,0,0.9);
+            background-color: rgba(255,255,255,0.95);
             backdrop-filter: blur(5px);
             align-items: center; justify-content: center;
         }
         .modal-content {
             margin: auto; display: block; max-width: 90%; max-height: 90vh;
             border: 2px solid var(--accent); border-radius: 4px;
-            box-shadow: 0 0 20px rgba(100, 255, 218, 0.2);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
             animation: zoom 0.3s;
         }
         .modal-close {
             position: absolute; top: 20px; right: 35px;
-            color: #f1f1f1; font-size: 40px; font-weight: bold;
+            color: var(--text-main); font-size: 40px; font-weight: bold;
             transition: 0.3s; cursor: pointer;
         }
         .modal-close:hover { color: var(--accent); }
@@ -182,7 +184,23 @@
         /* --- FOOTER --- */
         footer { text-align: center; padding: 20px; font-size: 0.8rem; color: var(--text-secondary); font-family: var(--font-heading); }
 
-        /* --- ANIMATION --- */
+        /* --- EXPLORE MORE BUTTON --- */
+        .explore-more-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            margin: 30px auto 0;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            border: none;
+            font-size: 1rem;
+        }
+        .explore-more-btn:hover { background: var(--accent-hover); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3); }
         .hidden { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .show { opacity: 1; transform: translateY(0); }
 
@@ -215,9 +233,9 @@
         <h2>About Me</h2>
         <div class="about-grid">
             <div id="about-text"></div>
-            <div style="text-align: center;">
-                <div style="width: 250px; height: 250px; background-color: var(--accent); opacity: 0.2; border-radius: 50%; margin: 0 auto; position: relative;"></div>
-                <div style="position: relative; top: -230px; left: 20px; width: 250px; height: 250px; border: 2px solid var(--accent); border-radius: 50%;"></div>
+            <div style="text-align: center; padding: 40px;">
+                <div style="font-size: 4rem; color: var(--accent); margin-bottom: 20px;"><i class="fas fa-code"></i></div>
+                <p style="color: var(--text-secondary); font-style: italic;">Passionate about building innovative solutions</p>
             </div>
         </div>
     </section>
@@ -586,6 +604,14 @@
             `;
             projectContainer.appendChild(card);
         });
+        
+        // Add Explore More button to Projects section
+        const projectsSection = document.getElementById('projects');
+        const exploreProjectsBtn = document.createElement('button');
+        exploreProjectsBtn.className = 'explore-more-btn';
+        exploreProjectsBtn.innerHTML = 'Explore More Projects <i class="fas fa-arrow-right"></i>';
+        exploreProjectsBtn.onclick = () => window.open('https://github.com/Yashuu05?tab=repositories', '_blank');
+        projectsSection.appendChild(exploreProjectsBtn);
 
         // Education
         const eduContainer = document.getElementById('education-container');
@@ -607,31 +633,12 @@
             const catDiv = document.createElement('div');
             catDiv.className = 'skill-category';
             
-            // Check if items have levels to decide rendering style
-            const hasLevels = cat.items.some(item => item.level !== undefined);
-
-            let contentHtml = '';
+            // Render all skills as tags
+            const itemsHtml = cat.items.map(item => `
+                <span class="skill-tag">${item.name}</span>
+            `).join('');
             
-            if (hasLevels) {
-                // Render with Status Bars (Languages & Tools)
-                const itemsHtml = cat.items.map(item => `
-                    <div>
-                        <div class="skill-meta"><span>${item.name}</span><span>${item.level}%</span></div>
-                        <div class="bar-container"><div class="bar-fill" style="width: ${item.level}%"></div></div>
-                    </div>
-                `).join('');
-                contentHtml = `<div class="skill-bars">${itemsHtml}</div>`;
-            } else {
-                // Render as Tags (Other)
-                const itemsHtml = cat.items.map(item => `
-                    <span style="display: inline-block; background: var(--bg-card); padding: 8px 16px; border-radius: 4px; border: 1px solid var(--accent); color: var(--text-main); font-size: 0.9rem; margin-bottom: 10px;">
-                        ${item.name}
-                    </span>
-                `).join('');
-                contentHtml = `<div style="display: flex; flex-wrap: wrap; gap: 10px;">${itemsHtml}</div>`;
-            }
-
-            catDiv.innerHTML = `<h3>${cat.category}</h3>${contentHtml}`;
+            catDiv.innerHTML = `<h3>${cat.category}</h3><div class="skill-tags">${itemsHtml}</div>`;
             skillsContainer.appendChild(catDiv);
         });
 
@@ -668,6 +675,14 @@
             `;
             certsContainer.appendChild(li);
         });
+        
+        // Add Explore More button to Certifications section
+        const certificationsSection = document.getElementById('certifications');
+        const exploreCertsBtn = document.createElement('button');
+        exploreCertsBtn.className = 'explore-more-btn';
+        exploreCertsBtn.innerHTML = 'Explore More Certifications <i class="fas fa-arrow-right"></i>';
+        exploreCertsBtn.onclick = () => window.open('https://www.coursera.org/', '_blank');
+        certificationsSection.appendChild(exploreCertsBtn);
 
         // Competitions
         const compContainer = document.getElementById('competitions-container');
@@ -697,6 +712,14 @@
             `;
             compContainer.appendChild(div);
         });
+        
+        // Add Explore More button to Competitions section
+        const competitionsSection = document.getElementById('competitions');
+        const exploreCompsBtn = document.createElement('button');
+        exploreCompsBtn.className = 'explore-more-btn';
+        exploreCompsBtn.innerHTML = 'Explore More Competitions <i class="fas fa-arrow-right"></i>';
+        exploreCompsBtn.onclick = () => window.open('https://www.kaggle.com/competitions', '_blank');
+        competitionsSection.appendChild(exploreCompsBtn);
 
         // Experience
         const expContainer = document.getElementById('experience-container');
